@@ -1,0 +1,38 @@
+Manufacturer,Material/Technology,Full form,Efficiency_Min (%),Efficiency_Max (%),Performance Factor
+Adani Solar,Mono-PERC,Monocrystalline Passivated Emitter Rear Contact,20,23,0.83
+Adani Solar,Bifacial,Bifacial Module (captures light from both sides),10,30,0.84
+Adani Solar,TOPCon,Tunnel Oxide Passivated Contact,22,99,0.87
+Adani Solar,Half-Cut,Half-Cut Cell Technology,3,5,0.82
+Vikram Solar,Mono-PERC,Monocrystalline Passivated Emitter Rear Contact,20,23,0.83
+Vikram Solar,Bifacial,Bifacial Module (captures light from both sides),10,30,0.84
+Vikram Solar,HJT (Heterojunction),Heterojunction Technology,23,99,0.86
+Waaree Energies,Mono-PERC,Monocrystalline Passivated Emitter Rear Contact,20,23,0.83
+Waaree Energies,Half-Cut,Half-Cut Cell Technology,3,5,0.82
+Waaree Energies,Bifacial,Bifacial Module (captures light from both sides),10,30,0.84
+Waaree Energies,"Multi-busbar (9BB, 12BB)",Multiple Busbar Technology (9 or 12 Busbars),0,1,0.83
+Tata Power Solar,Mono-PERC,Monocrystalline Passivated Emitter Rear Contact,20,23,0.83
+RenewSys,Mono-PERC,Monocrystalline Passivated Emitter Rear Contact,20,23,0.83
+RenewSys,Bifacial,Bifacial Module (captures light from both sides),10,30,0.84
+Emmvee Solar,Mono-PERC,Monocrystalline Passivated Emitter Rear Contact,20,23,0.83
+Goldi Solar,Mono-PERC,Monocrystalline Passivated Emitter Rear Contact,20,23,0.83
+Goldi Solar,Half-Cut,Half-Cut Cell Technology,3,5,0.82
+Premier Energies,Mono-PERC,Monocrystalline Passivated Emitter Rear Contact,20,23,0.83
+Premier Energies,Bifacial,Bifacial Module (captures light from both sides),10,30,0.84
+Saatvik Green Energy,Mono-PERC,Monocrystalline Passivated Emitter Rear Contact,20,23,0.83
+Saatvik Green Energy,Bifacial,Bifacial Module (captures light from both sides),10,30,0.84
+Jakson Solar,Mono-PERC,Monocrystalline Passivated Emitter Rear Contact,20,23,0.83
+,Mono-Si,Monocrystalline Silicon,18,24,0.82
+,Poly-Si,Polycrystalline Silicon,15,20,0.79
+,Mono-PERC,Monocrystalline Passivated Emitter Rear Contact,19,22,0.83
+,TOPCon,Tunnel Oxide Passivated Contact,21,23,0.87
+,HJT,Heterojunction Technology,20,24,0.86
+,IBC,Interdigitated Back Contact,21,23,0.88
+,PERT,Passivated Emitter Rear Totally Diffused,18,20,0.84
+,SHJ,Silicon Heterojunction,23,99,0.86
+,Half-Cut,Half-Cut Cell Design,0,1,0.82
+,"Multi-busbar (9BB, 12BB)",More Current Paths,0,1,0.83
+,Shingled,Overlapping Cells,1,2,0.84
+,Tiling Ribbon,Zero-gap Cell Layout,1,1,0.84
+,a-Si,Amorphous Silicon,6,10,0.72
+,CdTe,Cadmium Telluride,9,16,0.74
+,CIGS,Copper Indium Gallium Selenide,13,17,0.75

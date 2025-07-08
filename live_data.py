@@ -27,11 +27,11 @@ def fetch_nasa_power_data(lat, lon, start_date, end_date):
     for attempt in range(3):
         try:
             response= requests.get(base_url, params=params, headers={"User-Agent": "solar-ml-client"})
-            print(f"\n🌐 Attempt {attempt + 1} URL: {response.url}")
+            print(f"\nAttempt {attempt + 1} URL: {response.url}")
             response.raise_for_status()
             break
         except requests.exceptions.RequestException as e:
-            print(f"⚠️ Attempt {attempt + 1} failed: {e}")
+            print(f"Attempt {attempt + 1} failed: {e}")
             if attempt == 2:
                 raise
 
@@ -81,13 +81,13 @@ def main(pincode):
         #Get the current date in UTC. and Subtract 30 days and add 10 days using timedelta.
 
         weather_df= fetch_nasa_power_data(lat,lon, start_date, end_date)
-        print(f"\n✅ Data fetched successfully for {len(weather_df)} rows.")
+        print(f"\nData fetched successfully for {len(weather_df)} rows.")
 
         filename= f"weather_data_{pincode}_{start_date.strftime('%Y%m%d')}_{end_date.strftime('%Y%m%d')}.csv"
-         weather_df.to_csv(filename, index=False)
-        print(f"✅ Saved as: {filename}")
+        weather_df.to_csv(filename, index=False)
+        print(f"Saved as: {filename}")
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"Error: {e}")
 
 
 def get_live_weather_df(pincode):
@@ -115,8 +115,8 @@ def get_live_weather_df(pincode):
 
     filename = f"live_weather_{pincode}_{today.strftime('%Y%m%d')}.csv"
     weather_df.to_csv(filename, index=False)
-    print(f"📁 Live weather data saved as: {filename}")
+    print(f"Live weather data saved as: {filename}")
     print(weather_df.head())
-    print(f"✅ {len(weather_df)} rows fetched.")
+    print(f" {len(weather_df)} rows fetched.")
 
     return weather_df

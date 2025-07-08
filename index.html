@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarSmart</title>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<script src="{{ url_for('static', filename='script.js') }}">
+</script>
+</head>
+<body>
+<!--Creating a Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+          <a class="navbar-brand fw-bold" href="#">🌿SolarSmart</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto fw-semibold">
+              <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="#solarForm">Features</a></li>
+              <li class="nav-item"><a class="nav-link" href="#howItWorks">How It Works</a></li>
+              <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+<div class="container mt-5 text-center">
+<h1 class="animate-heading">Estimate Your <span style="color:#f97316">Solar Power</span> Output</h1>
+<p class="lead">Enter your system details to get energy insights</p>
+</div>
+
+<!--Creating a form -->
+<div class="container mt-4" id="solarFormContainer"></div>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <form id="solarForm">
+          <div class="mb-3">
+            <label for="pincode" class="form-label">Pincode</label>
+            <input type="text" id="pincode" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label for="tech" class="form-label">Solar Panel Technology</label>
+            <select id="tech" class="form-select" required>
+              <option value="">-- Select Technology --</option>
+              <option value="Mono-PERC">Mono-PERC</option>
+              <option value="Bifacial">Bifacial</option>
+              <option value="TOPCon">TOPCon</option>
+              <option value="Half-Cut">Half-Cut</option>
+              <option value="HJT (Heterojunction)">HJT (Heterojunction)</option>
+              <option value="Multi-busbar (9BB, 12BB)">Multi-busbar (9BB, 12BB)</option>
+              <option value="Mono-Si">Mono-Si</option>
+              <option value="Poly-Si">Poly-Si</option>
+              <option value="IBC">IBC</option>
+              <option value="PERT">PERT</option>
+              <option value="SHJ">SHJ</option>
+              <option value="Shingled">Shingled</option>
+              <option value="Tiling Ribbon">Tiling Ribbon</option>
+              <option value="a-Si">a-Si</option>
+              <option value="CdTe">CdTe</option>
+              <option value="CIGS">CIGS</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="area" class="form-label">Panel Area (m²)</label>
+            <input type="number" id="area" class="form-control" required />
+          </div>
+          <div class="mb-3">
+            <label for="tilt" class="form-label">Tilt Angle (optional)</label>
+            <input type="number" id="tilt" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="manufacturer" class="form-label">Manufacturer(optional)</label>
+            <select id="manufacturer" class="form-select" >
+              <option value="">-- Select Manufacturer --</option>
+              <option value="Adani Solar">Adani Solar</option>
+              <option value="Vikram Solar">Vikram Solar</option>
+              <option value="Waaree Energies">Waaree Energies</option>
+              <option value="Tata Power Solar">Tata Power Solar</option>
+              <option value="RenewSys">RenewSys</option>
+              <option value="Emmvee Solar">Emmvee Solar</option>
+              <option value="Goldi Solar">Goldi Solar</option>
+              <option value="Premier Energies">Premier Energies</option>
+              <option value="Saatvik Green Energy">Saatvik Green Energy</option>
+              <option value="Jakson Solar">Jakson Solar</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-warning w-100" id="calculateBtn">Calculate</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!--Adding Spinner -->
+  <div class="text-center my-4" id="loadingSpinner" style="display: none;">
+    <div class="spinner-border text-warning" role="status" style="width: 3rem; height: 3rem;">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Calculating solar prediction...</p>
+  </div>
+
+   <!--Adding  JavaScript for Form handling -->
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script>
+ document.addEventListener("DOMContentLoaded", () => {
+   const form = document.getElementById("solarForm");
+   const spinner = document.getElementById("loadingSpinner");
+ 
+   
+   // Mapping of manufacturers to technologies
+   const fullTechOptions = [
+     "Mono-PERC", "Bifacial", "TOPCon", "Half-Cut", "HJT (Heterojunction)", 
+     "Multi-busbar (9BB, 12BB)", "Mono-Si", "Poly-Si", "IBC", "PERT", 
+     "SHJ", "Shingled", "Tiling Ribbon", "a-Si", "CdTe", "CIGS"
+   ];
+ 
+   const manufacturerTechMap = {
+     "Adani Solar": ["Mono-PERC", "Multi-busbar (9BB, 12BB)", "TOPCon"],
+     "Vikram Solar": ["Mono-Si", "Bifacial", "Half-Cut"],
+     "Waaree Energies": ["Mono-PERC", "Poly-Si", "Bifacial", "TOPCon"],
+     "Tata Power Solar": ["Mono-Si", "Poly-Si"],
+     "RenewSys": ["Mono-Si", "HJT (Heterojunction)"],
+     "Emmvee Solar": ["TOPCon"],
+     "Goldi Solar": ["Mono-PERC", "Shingled"],
+     "Premier Energies": ["Mono-Si", "PERT"],
+     "Saatvik Green Energy": ["Mono-PERC", "IBC"],
+     "Jakson Solar": ["Poly-Si"]
+   };
+ 
+   const manufacturerSelect = document.getElementById("manufacturer");
+   const techSelect = document.getElementById("tech");
+ 
+   function populateTechOptions(options) {
+     techSelect.innerHTML = '<option value="">-- Select Technology --</option>';
+     options.forEach(tech => {
+       const opt = document.createElement("option");
+       opt.value = tech;
+       opt.textContent = tech;
+       techSelect.appendChild(opt);
+     });
+   }
+ 
+   // Populate full tech options on page load
+   populateTechOptions(fullTechOptions);
+ 
+   // Filter tech options when manufacturer changes
+   manufacturerSelect.addEventListener("change", () => {
+     const selected = manufacturerSelect.value;
+     if (!selected) {
+       populateTechOptions(fullTechOptions);
+     } else {
+       populateTechOptions(manufacturerTechMap[selected] || []);
+     }
+   });
+   
+   form.addEventListener("submit", async (e) => {
+     e.preventDefault();
+ 
+     const pincode = document.getElementById("pincode").value.trim();
+     const tech = document.getElementById("tech").value;
+     const area = parseFloat(document.getElementById("area").value);
+     const tilt = parseFloat(document.getElementById("tilt").value) || 0;
+     const manufacturer = document.getElementById("manufacturer").value || null;
+ 
+     if (!pincode || !tech || isNaN(area)) {
+       alert("⚠️ Please fill in all required fields.");
+       return;
+     }
+ 
+     spinner.style.display = "block";
+ 
+     try {
+       const res = await fetch("http://127.0.0.1:5000/predict", {
+         method: "POST",
+         headers: { "Content-Type": "application/json" },
+         body: JSON.stringify({ pincode, material: tech, area, tilt, manufacturer }),
+       });
+ 
+       if (!res.ok) throw new Error("❌ Server Error");
+ 
+       const data = await res.json();
+       console.log("✅ Received:", data);
+ 
+       localStorage.setItem("solarPrediction", JSON.stringify(data));
+       window.location.href = "/results";
+ 
+     } catch (err) {
+       console.error(err);
+       alert("❌ Prediction failed. Please try again.");
+     } finally {
+       spinner.style.display = "none";
+     }
+   });
+ });
+ </script>
+</body>
+</html>

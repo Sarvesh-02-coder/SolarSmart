@@ -59,7 +59,7 @@ India has vast untapped solar potential, but most users lack accessible tools to
 ![Input Form](screenshots/Sample_Input.png)
 
 ### Results Page
-![Prediction Results](screenshots/results.png)
+![Prediction Results](screenshots/Results.png)
 
 ---
 

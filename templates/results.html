@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SolarSmart Results</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+  <div class="container mt-5 text-center">
+    <h1 class="animate-heading mb-4">Your <span style="color:#f97316">Solar Power</span> Estimation Results</h1>
+    <a href="index.html" class="btn btn-secondary mb-4">← Back to Input</a>
+  </div>
+
+  <div class="container output-section" id="output">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header">Current Power Generation</div>
+          <div class="card-body">
+            <h4 id="currentPower">--</h4>
+          </div>
+        </div>
+        <div class="card mb-4">
+          <div class="card-header">Electricity Saved (Yearly)</div>
+          <div class="card-body">
+            <h4 id="electricitySaved">--</h4>
+          </div>
+        </div>
+        <div class="card mb-4">
+          <div class="card-header">Average Daily Generation</div>
+          <div class="card-body">
+            <h4 id="dailyAvg">--</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-header">Last Month Power Generation</div>
+          <div class="card-body">
+            <canvas id="lastMonthChart"></canvas>
+          </div>
+        </div>
+        <div class="card mb-4">
+          <div class="card-header">Next 10 Days Forecast</div>
+          <div class="card-body">
+            <canvas id="forecastChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{{ url_for('static', filename='results.js') }}"></script>
+
+</body>
+</html>

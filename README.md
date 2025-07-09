@@ -1,3 +1,4 @@
+
 # SolarSmart: Smart Solar Output Estimation System
 
 _Developed for HACKORBIT 2025 — Solar Energy Optimization Track_
@@ -19,7 +20,8 @@ India has vast untapped solar potential, but most users lack accessible tools to
 - Predict energy output using a trained machine learning model
 - View real-time estimates for current power, daily, monthly, and yearly energy generation
 - Interactive charts showing historical performance and short-term forecasts
-- Ongoing development of a chatbot assistant for user interaction
+- Animated UI with responsive design
+- ⚡ Chatbot integration in progress (see below)
 
 ---
 
@@ -29,7 +31,7 @@ India has vast untapped solar potential, but most users lack accessible tools to
 - **Backend**: Flask
 - **Machine Learning**: Random Forest Regressor (trained using scikit-learn)
 - **APIs**: NASA POWER API, OpenStreetMap (for geolocation)
-- **Chatbot (in progress)**: Langchain, LLMs, RetrievalQA
+- **Chatbot (in progress)**: Langchain, LLMs, FAISS vectorstore, HuggingFace embeddings
 
 ---
 
@@ -69,12 +71,12 @@ The model is trained on more than 15 combined datasets, including:
 - Actual solar power generation (`Power(MW)`)
 - Corresponding weather data
 
-**Folder**: `Datasets/`  
-**Example files**:
+📁 **Folder**: `Datasets/`  
+📂 **Example files**:
 - `Actual_UPV_Hourly_30.45_-88.25_2006.csv`
-- `*_weather.csv`
+- `Actual_UPV_hourly_32.05_-103.75_2006_weather.csv`
 
-**Sources**: Public datasets from NREL and NASA POWER
+**Source**: Public datasets from [NREL](https://www.nrel.gov/grid/solar-power-data.html) and NASA POWER
 
 ---
 
@@ -97,7 +99,7 @@ Before running predictions, you need to train the model using:
 python main.py
 ```
 
-This will generate the following files:
+This will generate the following files in your working directory:
 - `trained_model.pkl`
 - `scaler.pkl`
 
@@ -120,48 +122,28 @@ This project is submitted as a working prototype for HACKORBIT 2025. Core functi
 - Full-stack integration of machine learning with Flask backend
 - Visual output through charts and responsive UI
 
-Chatbot integration is currently in progress and partially functional.
-
 ---
 
 ## Authors — Team We Bare Bugs
 
-- **Sarvesh Sapkal** — Backend development, machine learning model training
-- **Shalvi Maheshwari** — Chatbot integration, backend-frontend integration
-- **Laukika Shinde** — Frontend design, data processing
+- 🧠 **Sarvesh Sapkal** — Backend development, machine learning model training
+- 🧩 **Shalvi Maheshwari** — Chatbot integration, backend-frontend integration
+- 🎨 **Laukika Shinde** — Frontend design, data processing
+
+---
+
+## ⚠️ Chatbot Integration Notice
+
+The chatbot (Sunny) is under development and currently **not active** in the live interface. This is because:
+
+> ❗ We require a **personal Groq API key** for integration with Langchain's `ChatGroq` (LLaMA3).
+
+We are actively exploring **alternative integration methods** to support chatbot features **without API key restrictions**, aiming for a smooth and public-compatible implementation.
+
+Until then, you will see a "Coming Soon" badge for the chatbot.
 
 ---
 
 ## License
 
-This project is intended for academic and research use.
-
----
-
-## 🤖 Chatbot Setup Summary
-
-The chatbot in this project is designed to assist users with queries related to solar power prediction by referencing a custom knowledge base.
-
-### ✅ What We Did
-
-- Developed the main chatbot logic in `chatbot.py`, integrating with a local knowledge base containing relevant documentation.
-- Utilized Langchain for prompt handling, retrieval-based QA, and memory management.
-- Embedded documents using HuggingFace embeddings and stored them in a ChromaDB vector store for fast semantic search.
-- Configured Flask with Flask-CORS to serve the chatbot API and enable frontend communication.
-
-### 📦 Note on Dependencies
-
-Due to GitHub’s file size limitations, we have not committed the full set of dependencies (which exceed 100 MB) to the repository. To run the chatbot locally, please ensure the following:
-
-1. Create a virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # or venv\Scripts\activate on Windows
-   ```
-
-2. Install required packages manually using:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-Make sure you have GPU/CPU capacity and RAM to run embeddings locally.
+This project is intended for academic and research use only.

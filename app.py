@@ -10,6 +10,15 @@ CORS(app)
 def home():
     return render_template("index.html")
 
+@app.route("/features")
+def features():
+    return render_template("features.html")
+
+@app.route("/howItWorks")
+def how_it_works():
+    return render_template("howItWorks.html")
+
+
 @app.route("/results")
 def results_page():
     return render_template("results.html")

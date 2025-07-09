@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How SolarSmart Works</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="static/styles.css" />
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="index.html">🌿SolarSmart</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto fw-semibold">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/features">Features</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/howItWorks">How It Works</a></li>
+          <li class="nav-item"><a class="nav-link" href="/">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header Section -->
+  <div class="container mt-5 text-center">
+    <h1 class="animate-heading mb-3">🔍 How <span style="color:#f97316">SolarSmart</span> Works</h1>
+    <p class="lead">Understand the inner workings of our intelligent solar energy predictor</p>
+  </div>
+
+  <!-- Working Steps -->
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="card fade-in">
+          <div class="card-header bg-success text-white">Step 1: User Input</div>
+          <div class="card-body">
+            <p>You enter your location pincode, solar panel technology, area, and optionally tilt and manufacturer details on the homepage form.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <div class="card fade-in">
+          <div class="card-header bg-warning text-dark">Step 2: Live Weather Fetching</div>
+          <div class="card-body">
+            <p>We query NASA POWER and OpenStreetMap APIs to fetch live solar irradiance, temperature, and wind speed for your location.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <div class="card fade-in">
+          <div class="card-header bg-info text-white">Step 3: ML Model Prediction</div>
+          <div class="card-body">
+            <p>The model uses a Random Forest Regressor trained on global datasets to estimate your solar energy production using GHI, weather, and time features.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <div class="card fade-in">
+          <div class="card-header bg-danger text-white">Step 4: Performance Adjustment</div>
+          <div class="card-body">
+            <p>Adjustments are made using a performance factor based on your chosen panel material and manufacturer for improved accuracy.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 mb-4">
+        <div class="card fade-in">
+          <div class="card-header bg-dark text-white">Step 5: Visualization</div>
+          <div class="card-body">
+            <p>You'll receive your current output, daily average, monthly and yearly generation, along with money saved, and two animated charts for last month and 10-day forecast.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Coming Soon -->
+  <div class="container text-center mb-5">
+    <p class="fs-5">✨ Stay tuned! A chatbot named <strong>Sunny</strong> is coming soon to answer your solar queries.</p>
+  </div>
+  <button id="sunnyChat" title="Chat with Sunny">☀️ Chat with Sunny (Coming Soon)</button>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

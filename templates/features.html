@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Features | SolarSmart</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="static/styles.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="index.html">🌿SolarSmart</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto fw-semibold">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/features">Features</a></li>
+          <li class="nav-item"><a class="nav-link" href="/howItWorks">How It Works</a></li>
+          <li class="nav-item"><a class="nav-link" href="/">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Features Section -->
+  <div class="container mt-5 text-center">
+    <h1 class="animate-heading mb-4">🔆 Project <span style="color:#f97316">Features</span></h1>
+    <p class="lead">Explore what makes SolarSmart intelligent and user-friendly!</p>
+
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <div class="feature-box">
+          <h4>⚡ Live Weather-Driven Power Prediction</h4>
+          <p>Using NASA POWER and OpenStreetMap APIs, we fetch weather data dynamically based on user pincode.</p>
+        </div>
+        <div class="feature-box mt-4">
+          <h4>🔍 Panel Technology Customization</h4>
+          <p>Supports 15+ modern solar technologies and manufacturers for accurate results.</p>
+        </div>
+        <div class="feature-box mt-4">
+          <h4>📈 Daily, Monthly, and Yearly Analytics</h4>
+          <p>Clear insights into current, forecasted, and historical energy generation in kWh.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="feature-box">
+          <h4>💰 Savings Estimation</h4>
+          <p>Calculates potential money saved annually based on electricity tariffs.</p>
+        </div>
+        <div class="feature-box mt-4">
+          <h4>📊 Charts and Visualization</h4>
+          <p>Clean, dynamic charts rendered using Chart.js to visualize solar output trends.</p>
+        </div>
+        <div class="feature-box mt-4">
+          <h4>🤖 Chatbot Assistant (Coming Soon)</h4>
+          <p>We’re integrating “Sunny”, your friendly solar guide — stay tuned!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button id="sunnyChat" title="Chat with Sunny">☀️ Chat with Sunny (Coming Soon)</button>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

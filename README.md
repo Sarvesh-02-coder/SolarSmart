@@ -136,3 +136,32 @@ Chatbot integration is currently in progress and partially functional.
 
 This project is intended for academic and research use.
 
+---
+
+## 🤖 Chatbot Setup Summary
+
+The chatbot in this project is designed to assist users with queries related to solar power prediction by referencing a custom knowledge base.
+
+### ✅ What We Did
+
+- Developed the main chatbot logic in `chatbot.py`, integrating with a local knowledge base containing relevant documentation.
+- Utilized Langchain for prompt handling, retrieval-based QA, and memory management.
+- Embedded documents using HuggingFace embeddings and stored them in a ChromaDB vector store for fast semantic search.
+- Configured Flask with Flask-CORS to serve the chatbot API and enable frontend communication.
+
+### 📦 Note on Dependencies
+
+Due to GitHub’s file size limitations, we have not committed the full set of dependencies (which exceed 100 MB) to the repository. To run the chatbot locally, please ensure the following:
+
+1. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # or venv\Scripts\activate on Windows
+   ```
+
+2. Install required packages manually using:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+Make sure you have GPU/CPU capacity and RAM to run embeddings locally.

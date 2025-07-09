@@ -10,13 +10,13 @@ import joblib
 
 from live_data import get_live_weather_df
 
-# === Constants ===
+#Constants
 plant_area_m2 = 32500.0
 price_per_kwh = 7
 solar_panel_path = os.path.join(os.path.dirname(__file__), "Solar_panel_Dataset.csv")
 panel_df = pd.read_csv(solar_panel_path)
 
-# === Get Performance Factor ===
+#Get Performance Factor
 def get_perf_factor(manufacturer, material):
     if manufacturer:
         filtered = panel_df[
@@ -31,9 +31,9 @@ def get_perf_factor(manufacturer, material):
     if not filtered.empty:
         return filtered["Performance Factor"].values[0]
     else:
-        raise ValueError("⚠️ Material or manufacturer not found.")
+        raise ValueError(" Material or manufacturer not found.")
 
-# === Train Model on One Dataset ===
+#Train Model on One Dataset
 def train_model(power_path, weather_path, perf_factor):
     power_df = pd.read_csv(power_path)
     weather_df = pd.read_csv(weather_path)
@@ -59,9 +59,9 @@ def train_model(power_path, weather_path, perf_factor):
 
     return model, scaler, merged
 
-# === Load and Combine All Datasets ===
+# Load and Combine All Datasets
 def load_and_combine_all_datasets():
-    print("📂 Loading and matching datasets from 'Datasets/'...")
+    print("Loading and matching datasets from 'Datasets/'...")
     combined_df = pd.DataFrame()
 
     power_files = [f for f in os.listdir("Datasets") if f.lower().endswith(".csv") and "_weather" not in f.lower()]
@@ -70,13 +70,13 @@ def load_and_combine_all_datasets():
     for power_file in power_files:
         match = re.search(r"([-+]?\d+\.\d+)_([-+]?\d+\.\d+)", power_file)
         if not match:
-            print(f"⚠️ Skipping {power_file} — no lat/lon pattern found.")
+            print(f"Skipping {power_file} — no lat/lon pattern found.")
             continue
 
         lat, lon = match.groups()
         weather_match = next((wf for wf in weather_files if lat in wf and lon in wf), None)
         if not weather_match:
-            print(f"❌ No weather file matching {lat}, {lon} for {power_file}")
+            print(f" No weather file matching {lat}, {lon} for {power_file}")
             continue
 
         power_path = os.path.join("Datasets", power_file)
@@ -91,12 +91,12 @@ def load_and_combine_all_datasets():
             combined_df = pd.concat([combined_df, merged], ignore_index=True)
 
         except Exception as e:
-            print(f"❌ Failed to process {power_file}: {e}")
+            print(f" Failed to process {power_file}: {e}")
 
-    print(f"✅ Total rows combined: {len(combined_df)}")
+    print(f" Total rows combined: {len(combined_df)}")
     return combined_df
 
-# === Train Global Model ===
+#Train Global Model 
 if __name__ == "__main__":
     combined_df = load_and_combine_all_datasets()
 
@@ -111,14 +111,14 @@ if __name__ == "__main__":
 
     joblib.dump(model, "trained_model.pkl")
     joblib.dump(scaler, "scaler.pkl")
-    print("✅ Model trained on all datasets and saved.")
+    print(" Model trained on all datasets and saved.")
 
-# === Load Saved Model ===
+# Load Saved Model 
 def load_model_if_exists():
     if os.path.exists("trained_model.pkl") and os.path.exists("scaler.pkl"):
         model = joblib.load("trained_model.pkl")
         scaler = joblib.load("scaler.pkl")
-        print("✅ Loaded trained model and scaler.")
+        print("Loaded trained model and scaler.")
         return model, scaler
     else:
         print("⚠️ Model files not found.")
@@ -126,12 +126,12 @@ def load_model_if_exists():
 
 global_model, global_scaler = load_model_if_exists()
 
-# === Predict using Live Data ===
+# Predict using Live Data 
 def run_model_with_inputs(pincode, material, manufacturer, area, tilt):
     try:
         weather_df = get_live_weather_df(pincode)
     except Exception as e:
-        raise ValueError(f"❌ Weather fetch failed: {e}")
+        raise ValueError(f"Weather fetch failed: {e}")
 
     perf_factor = get_perf_factor(manufacturer, material)
     cosine_factor = max(0.5, math.cos(math.radians(tilt)))

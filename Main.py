@@ -16,6 +16,19 @@ price_per_kwh = 7
 solar_panel_path = os.path.join(os.path.dirname(__file__), "Solar_panel_Dataset.csv")
 panel_df = pd.read_csv(solar_panel_path)
 
+# Load Saved Model 
+def load_model_if_exists():
+    if os.path.exists("trained_model.pkl") and os.path.exists("scaler.pkl"):
+        model = joblib.load("trained_model.pkl")
+        scaler = joblib.load("scaler.pkl")
+        print("Loaded trained model and scaler.")
+        return model, scaler
+    else:
+        print("Model files not found.")
+        return None, None
+
+global_model, global_scaler = load_model_if_exists()
+
 #Get Performance Factor
 def get_perf_factor(manufacturer, material):
     if manufacturer:
@@ -31,17 +44,22 @@ def get_perf_factor(manufacturer, material):
     if not filtered.empty:
         return filtered["Performance Factor"].values[0]
     else:
-        raise ValueError(" Material or manufacturer not found.")
+        raise ValueError(" Material not found (check manufacturer or technology).")
 
 #Train Model on One Dataset
-def train_model(power_path, weather_path, perf_factor):
+def train_model(power_path, weather_path):
     power_df = pd.read_csv(power_path)
     weather_df = pd.read_csv(weather_path)
 
-    power_df["datetime"] = pd.to_datetime(power_df["LocalTime"])
-    weather_df["datetime"] = pd.to_datetime(weather_df[["YEAR", "MO", "DY", "HR"]])
+    # Parse datetime correctly
+    weather_df.rename(columns={"YEAR": "year", "MO": "month", "DY": "day", "HR": "hour"}, inplace=True)
+    weather_df["datetime"] = pd.to_datetime(weather_df[["year", "month", "day", "hour"]])
 
+    power_df["datetime"] = pd.to_datetime(power_df["LocalTime"])
     merged = pd.merge(power_df, weather_df, on="datetime")
+
+    is_upv = "UPV" in os.path.basename(power_path).upper()
+    perf_factor = panel_df[panel_df["Material/Technology"].str.contains("Mono" if is_upv else "Poly", case=False)]["Performance Factor"].mean()
 
     merged["adjusted_GHI"] = merged["GHI_W/m2"] * perf_factor
     merged["hour"] = merged["datetime"].dt.hour
@@ -53,7 +71,6 @@ def train_model(power_path, weather_path, perf_factor):
 
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
-
     model = RandomForestRegressor(n_estimators=100, random_state=42)
     model.fit(X_scaled, y)
 
@@ -83,11 +100,7 @@ def load_and_combine_all_datasets():
         weather_path = os.path.join("Datasets", weather_match)
 
         try:
-            is_upv = "UPV" in power_file.upper()
-            material = "Mono" if is_upv else "Poly"
-            perf_factor = panel_df[panel_df["Material/Technology"].str.contains(material, case=False)]["Performance Factor"].mean()
-
-            _, _, merged = train_model(power_path, weather_path, perf_factor)
+            _, _, merged = train_model(power_path, weather_path)
             combined_df = pd.concat([combined_df, merged], ignore_index=True)
 
         except Exception as e:
@@ -112,19 +125,6 @@ if __name__ == "__main__":
     joblib.dump(model, "trained_model.pkl")
     joblib.dump(scaler, "scaler.pkl")
     print(" Model trained on all datasets and saved.")
-
-# Load Saved Model 
-def load_model_if_exists():
-    if os.path.exists("trained_model.pkl") and os.path.exists("scaler.pkl"):
-        model = joblib.load("trained_model.pkl")
-        scaler = joblib.load("scaler.pkl")
-        print("Loaded trained model and scaler.")
-        return model, scaler
-    else:
-        print("⚠️ Model files not found.")
-        return None, None
-
-global_model, global_scaler = load_model_if_exists()
 
 # Predict using Live Data 
 def run_model_with_inputs(pincode, material, manufacturer, area, tilt):
